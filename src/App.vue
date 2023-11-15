@@ -1,7 +1,8 @@
 <template>
-  
- <HeaderApp />
+
+ <HeaderApp @search="getMoviesAndSeries" />
  <MainApp/>
+ <CardApp />
 
 </template>
 
@@ -9,8 +10,7 @@
 
 import HeaderApp from './components/HeaderApp.vue';
 import MainApp from './components/MainApp.vue';
-import CardMovieApp from './components/CardMovieApp.vue';
-import CardTvApp from './components/CardTvApp.vue';
+import CardApp from './components/CardApp.vue';
 import { store } from './data/store';
 import axios from 'axios';
 
@@ -19,14 +19,28 @@ import axios from 'axios';
     components: {
       HeaderApp,
       MainApp,
-      CardMovieApp,
-      CardTvApp
+      CardApp,
     },
     data (){
       return {
         store,
       }
-    }
+    },
+    methods: {
+      getMoviesAndSeries() {
+        const movieurl = this.store.apiUrl + this.store.endPoint.movies;
+        axios.get(movieurl, {params: this.store.params}).then((res) => {
+          console.log(res.data.results);
+          this.store.movieList = res.data.results;
+        });
+        const tvurl = this.store.apiUrl + this.store.endPoint.series;
+        axios.get(tvurl, {params: this.store.params}).then((res) => {
+          console.log(res.data.results);
+          this.store.seriesList = res.data.results;
+        });
+      }
+    },
+    
     
   }
 </script>

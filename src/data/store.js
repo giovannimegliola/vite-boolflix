@@ -14,6 +14,7 @@ export const store = reactive ({
 
   error:"",
   loading: true,
+  searchText: '',
   movieList: [],
   seriesList: []
 

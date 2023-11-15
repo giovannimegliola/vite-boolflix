@@ -11,8 +11,8 @@
 
           <form>
             <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Cerca nel nostro catalogo Film e Serie TV" aria-label="Search" />
-              <button type="button" class="btn mybtn">Search</button>
+            <input type="search" class="form-control rounded" placeholder="Cerca nel nostro catalogo Film e Serie TV" aria-label="Search" v-model="store.searchText" @keyup.enter="$emit('search')" />
+              <button type="button" class="btn mybtn" @click="$emit('search')">Search</button>
             </div>
           </form>
 

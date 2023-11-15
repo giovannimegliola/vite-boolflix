@@ -6,7 +6,11 @@
 
 <script>
   export default {
-    
+    name: "CardApp",
+    props: {
+      movie: Object
+
+    }
   }
 </script>
 

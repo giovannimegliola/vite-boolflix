@@ -1,16 +1,35 @@
 <template>
 
  <HeaderApp />
- <MainApp />
- <CardApp />
+
+ <main>
+  <section id="movie" class="container">
+    <h2>Film</h2>
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
+        {{ movie.title }} <br>
+        {{ movie.original_title }} <br>
+        {{ movie.original_language }} <br>
+        {{ movie.vote_average }}
+      </div>
+    </div>
+  </section>
+  <section id="movie" class="container">
+    <h2>Serie Tv</h2>
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3" v-for="(serie) in store.seriesList" :key="serie.id">
+        {{ serie.name }}
+      </div>
+    </div>
+  </section>
+ </main>
+ 
 
 </template>
 
 <script>
 
 import HeaderApp from './components/HeaderApp.vue';
-import MainApp from './components/MainApp.vue';
-import CardApp from './components/CardApp.vue';
 import { store } from './data/store';
 import axios from 'axios';
 
@@ -18,8 +37,6 @@ import axios from 'axios';
     name: "App",
     components: {
       HeaderApp,
-      MainApp,
-      CardApp,
     },
     data (){
       return {

@@ -1,7 +1,7 @@
 <template>
 
- <HeaderApp @search="getMoviesAndSeries" />
- <MainApp/>
+ <HeaderApp />
+ <MainApp />
  <CardApp />
 
 </template>
@@ -40,8 +40,9 @@ import axios from 'axios';
         });
       }
     },
-    
-    
+    created(){
+      this.getMoviesAndSeries();
+    }
   }
 </script>
 

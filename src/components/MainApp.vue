@@ -3,12 +3,7 @@
 
     <h2>Film</h2>
     <div class="row">
-      <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
-        {{ movie.title }} <br>
-        {{ movie.original_title }} <br>
-        {{ movie.original_language }} <br>
-        {{ movie.vote_count }}
-      </div>
+      <CardApp v-for="(movie) in movies" :key="movie.id" />
     </div>
 
   </section>
@@ -16,10 +11,8 @@
 
     <h2>Serie Tv</h2>
     <div class="row">
-      <div class="col-12 col-md-4 col-lg-3" v-for="(serie) in store.seriesList" :key="serie.id">
-    {{ serie.name }}
-  </div>
-</div>
+      <CardApp v-for="(serie) in series" :key="serie.id" />  
+    </div>
 
 </section>
 
@@ -29,20 +22,14 @@
 <script>
 
 import CardApp from './CardApp.vue';
-import axios from 'axios';
-import { store } from '../data/store';
-
-  export default {
+export default {
     name: "MainApp",
     components: {
-      CardApp,
-      
-    data () {
-      return {
-        store,
-      }
-    }
-    
+    CardApp,
+    },
+    props:{
+    movies: Array,
+    series: Array,
   }
 }
 </script>

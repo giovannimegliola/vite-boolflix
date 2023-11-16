@@ -9,10 +9,10 @@
 
         <div class="col-6 mt-4 mb-2">
 
-          <form>
+          <form @submit.prevent="searchHandler">
             <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Cerca nel nostro catalogo Film e Serie TV" aria-label="Search" v-model="store.searchText" @keyup.enter="$emit('search')" />
-              <button type="button" class="btn mybtn" @click="$emit('search')">Search</button>
+            <input type="search" class="form-control rounded" placeholder="Cerca nel nostro catalogo Film e Serie TV" aria-label="Search" v-model="store.searchText" />
+              <button type="submit" class="btn mybtn">Search</button>
             </div>
           </form>
 
@@ -26,16 +26,28 @@
 import { store } from '../data/store';
   export default {
     name: "HeaderApp",
+    props: {
+      searchText: String,
+    },
     data () {
       return {
         store,
       }
-    }
+    },
+    methods: {
+      searchHandler(){
+        this.$emit("search");
+      },
+    },
     
   }
 </script>
 
 <style lang="scss" scoped>
+
+header{
+  background-color: black;
+}
 
 h1{
  color: #E50914;

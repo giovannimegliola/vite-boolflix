@@ -66,8 +66,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+
 img.flag{
-  width: 40px;
+  width: 30px;
 }
 
 </style>

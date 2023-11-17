@@ -7,7 +7,7 @@
     <h2>Film</h2>
     <div class="row gy-4">
       <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
-        <CardCApp  :title="movie.title" :vote="movie.vote_average" :language="movie.original_language" :image="movie.poster_path" :overview="movie.overview"/>
+        <CardApp  :title="movie.title" :vote="movie.vote_average" :language="movie.original_language" :image="movie.poster_path" :overview="movie.overview"/>
       </div>
     </div>
   </section>
@@ -15,7 +15,7 @@
     <h2>Serie Tv</h2>
     <div class="row gy-4">
       <div class="col-12 col-md-4 col-lg-3" v-for="(tv) in store.seriesList" :key="tv.id">
-        <CardCApp  :title="tv.name" :vote="tv.vote_average" :language="tv.original_language" :image="tv.poster_path" :overview="tv.overview"/>
+        <CardApp  :title="tv.name" :vote="tv.vote_average" :language="tv.original_language" :image="tv.poster_path" :overview="tv.overview"/>
       </div>
     </div>
   </section>
@@ -46,13 +46,15 @@ import axios from 'axios';
     methods: {
       getMoviesAndSeries() {
         const movieurl = this.store.apiUrl + this.store.endPoint.movies;
-        axios.get(movieurl, {params: this.store.params}).then((res) => {
-          console.log(res.data.results);
+        axios.get(movieurl, {params: this.store.params,query: this.store.query}).then((res) => {
+          console.log("Movies results:", res.data.results);
           this.store.movieList = res.data.results;
+        }).catch((error) => {
+        console.error("Error fetching movies:", error);
         });
         const tvurl = this.store.apiUrl + this.store.endPoint.series;
-        axios.get(tvurl, {params: this.store.params}).then((res) => {
-          console.log(res.data.results);
+        axios.get(tvurl, {params: this.store.params,query: this.store.query}).then((res) => {
+          console.log("Series results:", res.data.results);
           this.store.seriesList = res.data.results;
         });
       }

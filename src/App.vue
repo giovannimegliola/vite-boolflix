@@ -4,7 +4,7 @@
 
  <main>
   <section id="movie" class="container">
-    <h2>Film</h2>
+    <h2 class="mytitle">Film</h2>
     <div class="row gy-4">
       <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
         <CardApp  :title="movie.title" :vote="movie.vote_average" :language="movie.original_language" :image="movie.poster_path" :overview="movie.overview"/>
@@ -12,7 +12,7 @@
     </div>
   </section>
   <section id="tv" class="container">
-    <h2>Serie Tv</h2>
+    <h2 class="mytitle">Serie Tv</h2>
     <div class="row gy-4">
       <div class="col-12 col-md-4 col-lg-3" v-for="(tv) in store.seriesList" :key="tv.id">
         <CardApp  :title="tv.name" :vote="tv.vote_average" :language="tv.original_language" :image="tv.poster_path" :overview="tv.overview"/>
@@ -67,5 +67,11 @@ import axios from 'axios';
 </script>
 
 <style lang="scss" scoped>
+main{
+  background-color: black;
+}
 
+.mytitle{
+  color: white;
+}
 </style>

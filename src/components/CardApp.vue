@@ -1,7 +1,7 @@
 <template>
   <div class="card bg-transparent" @click="toggleCard">
     <div v-if="front">
-      <img :src="getImage" :alt="title" class="img-fluid poster d-block">
+      <img :src="getImage" :alt="title" class="img-fluid d-block">
     </div>
     <div v-else>
       <h3>{{ title }}</h3>

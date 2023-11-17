@@ -1,24 +1,21 @@
 <template>
 
- <HeaderApp />
+ <HeaderApp @performSearch="getMoviesAndSeries"/>
 
  <main>
   <section id="movie" class="container">
     <h2>Film</h2>
-    <div class="row">
+    <div class="row gy-4">
       <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
-        {{ movie.title }} <br>
-        {{ movie.original_title }} <br>
-        {{ movie.original_language }} <br>
-        {{ movie.vote_average }}
+        <CardCApp  :title="movie.title" :vote="movie.vote_average" :language="movie.original_language" :image="movie.poster_path" :overview="movie.overview"/>
       </div>
     </div>
   </section>
-  <section id="movie" class="container">
+  <section id="tv" class="container">
     <h2>Serie Tv</h2>
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3" v-for="(serie) in store.seriesList" :key="serie.id">
-        {{ serie.name }}
+    <div class="row gy-4">
+      <div class="col-12 col-md-4 col-lg-3" v-for="(tv) in store.seriesList" :key="tv.id">
+        <CardCApp  :title="tv.name" :vote="tv.vote_average" :language="tv.original_language" :image="tv.poster_path" :overview="tv.overview"/>
       </div>
     </div>
   </section>
@@ -30,13 +27,16 @@
 <script>
 
 import HeaderApp from './components/HeaderApp.vue';
+import CardApp from './components/CardApp.vue'
 import { store } from './data/store';
 import axios from 'axios';
+
 
   export default {
     name: "App",
     components: {
       HeaderApp,
+      CardApp
     },
     data (){
       return {
@@ -59,8 +59,9 @@ import axios from 'axios';
     },
     created(){
       this.getMoviesAndSeries();
-    }
-  }
+    },
+    
+  };
 </script>
 
 <style lang="scss" scoped>

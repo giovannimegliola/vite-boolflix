@@ -1,20 +1,13 @@
-import {reactive} from "vue";
+import { reactive } from 'vue';
 
-export const store = reactive ({
-  apiUrl: "https://api.themoviedb.org/3/",
-  endPoint: {
-    movies: "search/movie",
-    series: "search/tv"
-  },
+export const store = reactive({
 
-  params: {
-    api_key: "4795599c90ee2bae420bc1c37daf11be",
-    query: "holmes"
-  },
-
-  error:"",
-  loading: false,
-  movieList: [],
-  seriesList: []
+  apiKey: '4795599c90ee2bae420bc1c37daf11be',
+  moviesApiUrl: 'https://api.themoviedb.org/3/search/movie',
+  seriesApiUrl: 'https://api.themoviedb.org/3/search/tv',
+  imageUrl: 'https://image.tmdb.org/t/p/w342',
+  moviesList: [],
+  seriesList: [],
+  searchText: ''
 
 });

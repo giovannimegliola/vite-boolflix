@@ -1,77 +1,57 @@
 <template>
-
- <HeaderApp @performSearch="getMoviesAndSeries"/>
-
- <main>
-  <section id="movie" class="container">
-    <h2 class="mytitle">Film</h2>
-    <div class="row gy-4">
-      <div class="col-12 col-md-4 col-lg-3" v-for="(movie) in store.movieList" :key="movie.id">
-        <CardApp  :title="movie.title" :vote="movie.vote_average" :language="movie.original_language" :image="movie.poster_path" :overview="movie.overview"/>
-      </div>
-    </div>
-  </section>
-  <section id="tv" class="container">
-    <h2 class="mytitle">Serie Tv</h2>
-    <div class="row gy-4">
-      <div class="col-12 col-md-4 col-lg-3" v-for="(tv) in store.seriesList" :key="tv.id">
-        <CardApp  :title="tv.name" :vote="tv.vote_average" :language="tv.original_language" :image="tv.poster_path" :overview="tv.overview"/>
-      </div>
-    </div>
-  </section>
- </main>
- 
-
+  <HeaderApp @search="searchContent" />
+  <MainApp />  
 </template>
 
 <script>
+import HeaderApp from "./components/HeaderApp.vue"
+import MainApp from "./components/MainApp.vue";
+import CardMoviesApp from "./components/CardMoviesApp.vue";
+import CardSeriesApp from "./components/CardSeriesApp.vue";
+import { store } from "./data/store.js";
+import axios from "axios";
 
-import HeaderApp from './components/HeaderApp.vue';
-import CardApp from './components/CardApp.vue'
-import { store } from './data/store';
-import axios from 'axios';
+export default {
+  components: {
+    HeaderApp,
+    MainApp,
+    CardMoviesApp,
+    CardSeriesApp
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  methods: {
+  async searchContent() {
+    store.moviesList = [];
+    store.seriesList = [];
 
+    const searchUrlMovies = `${store.moviesApiUrl}?api_key=${store.apiKey}&query=${store.searchText}`;
+    const searchUrlSeries = `${store.seriesApiUrl}?api_key=${store.apiKey}&query=${store.searchText}`;
 
-  export default {
-    name: "App",
-    components: {
-      HeaderApp,
-      CardApp
-    },
-    data (){
-      return {
-        store,
+    try {
+      const [moviesResponse, seriesResponse] = await Promise.all([
+        axios.get(searchUrlMovies),
+        axios.get(searchUrlSeries)
+      ]);
+
+      if (moviesResponse.data.results.length === 0 || seriesResponse.data.results.length === 0) {
+        store.errorMessage = "Nessun risultato trovato";
+      } else {
+        store.moviesList = moviesResponse.data.results;
+        store.seriesList = seriesResponse.data.results;
+        store.errorMessage = "";
       }
-    },
-    methods: {
-      getMoviesAndSeries() {
-        const movieurl = this.store.apiUrl + this.store.endPoint.movies;
-        axios.get(movieurl, {params: this.store.params,query: this.store.query}).then((res) => {
-          console.log("Movies results:", res.data.results);
-          this.store.movieList = res.data.results;
-        }).catch((error) => {
-        console.error("Error fetching movies:", error);
-        });
-        const tvurl = this.store.apiUrl + this.store.endPoint.series;
-        axios.get(tvurl, {params: this.store.params,query: this.store.query}).then((res) => {
-          console.log("Series results:", res.data.results);
-          this.store.seriesList = res.data.results;
-        });
-      }
-    },
-    created(){
-      this.getMoviesAndSeries();
-    },
-    
-  };
+    } catch (error) {
+      console.error("Errore durante la ricerca:", error);
+    }
+  },
+},
+
+};
 </script>
 
-<style lang="scss" scoped>
-main{
-  background-color: black;
-}
-
-.mytitle{
-  color: white;
-}
+<style lang="scss">
 </style>

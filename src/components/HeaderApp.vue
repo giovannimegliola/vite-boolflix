@@ -9,6 +9,10 @@
           <form @submit.prevent="searchContent">
             <div class="input-group">
               <input type="search" class="form-control rounded" placeholder="Cerca Film e Serie TV nel nostro catalogo" aria-label="Search" v-model="store.searchText" @keyup.enter="$emit('search')" required/>
+              <!-- <select v-model="store.selectedGenre" class="form-select" @change="searchContent">
+                <option value="">Tutti i generi</option>
+                <option v-for="genre in store.genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+              </select> -->
               <button type="button" class="btn btn-danger mybtn" @click="$emit('search')">Cerca</button>
             </div>
           </form>

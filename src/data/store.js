@@ -8,6 +8,7 @@ export const store = reactive({
   imageUrl: 'https://image.tmdb.org/t/p/w342',
   moviesList: [],
   seriesList: [],
+  genres: [],
   searchText: ''
 
 });

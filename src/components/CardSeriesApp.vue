@@ -19,11 +19,11 @@
           </li>
           <li class="mt-2">
             Lingua:
-            <span :class="`${getFlagCode(mySerie.original_language)}`"></span>
+            <img :src="getFlagCode" :alt="language" class="flag" >
           </li>
           <li class="mt-2">
             Voto:
-            <i v-for="n in 5" :key="n" class="fa-star" :class="{'fa-solid': n <= Math.ceil(mySerie.vote_average / 2), 'fa-regular': n > Math.ceil(mySerie.vote_average / 2), }" style="color: #ffff00"></i>
+            <i v-for="n in 5" :key="n" class="fa-star" :class="{'fa-solid': n <= Math.ceil(mySerie.vote_average / 2), 'fa-regular': n > Math.ceil(mySerie.vote_average / 2), }" style="color: yellow"></i>
           </li>
         </ul>
       </div>
@@ -51,8 +51,8 @@ export default {
     },
   methods: {
     getFlagCode (){
-        let flag = `/public/images/${this.language}.png`;
-        if (!this.flags.includes(this.language)){
+        let flag = `/public/images/${this.mySerie.language}.png`;
+        if (!this.flags.includes(this.mySerie.language)){
           flag = `/public/images/fake.png`;
         }
         return flag;
@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style scoped>
+img.flag{
+  width: 10px;
+}
 .mycard {
   background-color: transparent;
   margin-bottom: 500px;

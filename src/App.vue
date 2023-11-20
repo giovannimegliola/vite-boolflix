@@ -48,8 +48,27 @@ export default {
       console.error("Errore durante la ricerca:", error);
     }
   },
-},
-
+  // async loadPopularMovies() {
+  //     const popularMoviesUrl = `${store.moviesApiUrl}/popular?api_key=${store.apiKey}`;
+      
+  //     try {
+  //       const response = await axios.get(popularMoviesUrl);
+        
+  //       if (response.data.results.length === 0) {
+  //         store.errorMessage = "Nessun risultato trovato";
+  //       } else {
+  //         store.moviesList = response.data.results;
+  //         store.seriesList = []; 
+  //         store.errorMessage = "";
+  //       }
+  //     } catch (error) {
+  //       console.error("Errore durante il caricamento dei film più popolari:", error);
+  //     }
+  //   },
+  },
+  // created() {
+  //   this.loadPopularMovies(); 
+  // },
 };
 </script>
 
